@@ -1,12 +1,15 @@
 # Accident Prediction Streamlit App
 
-This project includes a lightweight Streamlit app that serves predictions from `accident_model.pkl`.
+This project includes a lightweight Streamlit app that serves predictions from a compact model artifact.
 
 ## Files
 
 - `app.py` - Streamlit UI and inference logic
-- `accident_model.pkl` - trained scikit-learn model
-- `requirements.txt` - minimal deployment dependencies
+- `accident_model.pkl` - original trained scikit-learn model (source artifact)
+- `accident_model_lite.pkl` - lightweight runtime artifact used by the app
+- `requirements.txt` - minimal deployment dependency (`streamlit` only)
+- `runtime.txt` - Python runtime for deployment platforms
+- `.python-version` - local/dev Python version pin
 
 ## Run locally
 
@@ -23,4 +26,7 @@ Deploy the folder as-is on Streamlit Community Cloud or any platform that can ru
 streamlit run app.py --server.port $PORT --server.address 0.0.0.0
 ```
 
-The app loads the model directly from the project directory and generates the input form from the model's saved feature names.
+## Performance notes
+
+- Deploy is lighter because runtime does not install `scikit-learn`.
+- Inference is pure Python using the pre-exported tree structure in `accident_model_lite.pkl`.
